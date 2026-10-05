@@ -4,7 +4,7 @@ repositories:
   related: []
 environment:
   setup: "npm ci"
-  start: "npm run start"
+  start: "pgrep -f '[n]ode server.js' >/dev/null || nohup npm run start >/tmp/facility-sandbox.log 2>&1 &"
   ready: "curl --fail http://localhost:3000/health"
   services:
     app:
