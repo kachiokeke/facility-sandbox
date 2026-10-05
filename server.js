@@ -1,9 +1,15 @@
 const http = require("http");
 
-const server = http.createServer((req, res) => {
+function handleRequest(req, res) {
   if (req.url === "/health") {
     res.writeHead(200, { "content-type": "text/plain" });
     res.end("ok");
+    return;
+  }
+
+  if (req.url === "/status") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ status: "ok" }));
     return;
   }
 
@@ -16,8 +22,14 @@ const server = http.createServer((req, res) => {
       </body>
     </html>
   `);
-});
+}
 
-server.listen(3000, () => {
-  console.log("Facility Sandbox running on port 3000");
-});
+if (require.main === module) {
+  const server = http.createServer(handleRequest);
+
+  server.listen(3000, () => {
+    console.log("Facility Sandbox running on port 3000");
+  });
+}
+
+module.exports = { handleRequest };
