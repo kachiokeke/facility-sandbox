@@ -1,0 +1,13 @@
+version: 1
+repositories:
+  primary: "github.com/kachiokeke/facility-sandbox"
+  related: []
+environment:
+  setup: "npm ci"
+  start: "npm run start"
+  ready: "curl --fail http://localhost:3000/health"
+  services:
+    app:
+      port: 3000
+      protocol: http
+      websocket: true
